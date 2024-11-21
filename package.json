@@ -1,0 +1,32 @@
+{
+  "name": "axios-abort-controller-hook",
+  "version": "1.0.1",
+  "main": "dist/axios-abort-controller-hook.umd.js",
+  "module": "dist/axios-abort-controller-hook.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "private": false,
+  "description": "This is a custom hook to help your axios request to be cancelled when the component is unmounted and even providing you with a function to abort a query at any moment.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:arthurmunhoz/axios-abort-controller-hook.git"
+  },
+  "author": {
+    "name": "Arthur Munhoz"
+  },
+  "scripts": {
+    "build": "vite build & tsc"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "axios": "1.7.7",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
