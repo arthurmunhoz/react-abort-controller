@@ -64,5 +64,5 @@ export const useGetWithAbort = (url: string, config: AxiosRequestConfig) => {
     };
   }, []);
 
-  return { api, data, isLoading, error, abort };
+  return [api, data, isLoading, error, abort];
 };
