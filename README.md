@@ -20,14 +20,16 @@ import useAxiosAbortController from 'axios-abort-controller-hook';
 const ItemsList = () => {
   const [page, setPage] = useState(0);
 
+  const params = useMemo(() => {
+    return {
+      page,
+      amount: 20,
+    }
+  }, [page]);
+
   const { api, data, isLoading, error, abort } = useGetWithAbort({
     "https://example-url.com/items",
-    {
-      "params": {
-        "page": 1,
-        "amount": 20,
-      }
-    }
+    params,
   });
 
   return (
@@ -41,6 +43,7 @@ const ItemsList = () => {
           ))}
         </ul>
       )}
+      
       <button onClick={() => setPage(prevPage => prevPage + 1)}>Next Page</button>
       <button onClick={abort}>Cancel Request</button>
     </div>);
