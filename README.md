@@ -1,12 +1,12 @@
 # axios-abort-controller-hook
 
-This is a lib that provides a custom React hook that simplifies the usage of Axios with the AbortController API.
-It allows you to easily cancel ongoing HTTP GET requests, and helping to prevent memory leaks and improve the performance of your application. The hook also cancels any ongong requests if your component unmounts.
+This is a lib that provides a custom React hook that simplifies calling and managing states of an API.
+It include a AbortController that allows you to easily cancel ongoing HTTP GET requests, and helping to prevent memory leaks and improve the performance of your application. The hook also cancels any ongong requests if your component unmounts.
 
 ## Installation
 
 ```bash
-npm install axios-abort-controller-hook
+npm install abort-controller-hook
 ```
 
 ## Usage
@@ -15,7 +15,8 @@ Here's a simple example of how to use the `axios-abort-controller-hook` in your 
 
 ```jsx
 import React, { useEffect } from 'react';
-import useAxiosAbortController from 'axios-abort-controller-hook';
+import { useFetchWithAbort } from 'axios-abort-controller-hook';
+import axios from "axios";
 
 const ItemsList = () => {
   const [page, setPage] = useState(0);
@@ -27,10 +28,11 @@ const ItemsList = () => {
     }
   }, [page]);
 
-  const { api, data, isLoading, error, abort } = useGetWithAbort({
-    "https://example-url.com/items",
-    params,
-  });
+  const api = useCallback(() => {
+    return axios.get("https://example-url.com/items", params)
+  }, [params];
+
+  const { data, isLoading, error, abort } = useFetchWithAbort(api);
 
   return (
     <div>
