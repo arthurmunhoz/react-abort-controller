@@ -6,16 +6,16 @@ It include a AbortController that allows you to easily cancel ongoing HTTP GET r
 ## Installation
 
 ```bash
-npm install fetch-with-abort-controller-hook
+npm install fetch-abort-controller-hook
 ```
 
 ## Usage
 
-Here's a simple example of how to use the `fetch-with-abort-controller-hook` in your React component:
+Here's a simple example of how to use the `fetch-abort-controller-hook` in your React component:
 
 ```jsx
 import React, { useEffect } from 'react';
-import { useFetchWithAbort } from 'axios-abort-controller-hook';
+import { useFetchWithAbort } from 'fetch-abort-controller-hook';
 import axios from "axios";
 
 const ItemsList = () => {
