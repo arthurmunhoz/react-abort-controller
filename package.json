@@ -1,6 +1,6 @@
 {
   "name": "axios-abort-controller-hook",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/axios-abort-controller-hook.umd.js",
   "module": "dist/axios-abort-controller-hook.mjs",
   "types": "dist/index.d.ts",
