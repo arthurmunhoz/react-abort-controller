@@ -1,6 +1,6 @@
 {
   "name": "fetch-abort-controller-hook",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "main": "dist/fetch-abort-controller-hook.umd.js",
   "module": "dist/fetch-abort-controller-hook.mjs",
   "types": "dist/index.d.ts",
