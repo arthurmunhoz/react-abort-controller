@@ -1,4 +1,4 @@
-# axios-abort-controller-hook
+# fetch-with-abort-controller-hook
 
 This is a lib that provides a custom React hook that simplifies calling and managing states of an API.
 It include a AbortController that allows you to easily cancel ongoing HTTP GET requests, and helping to prevent memory leaks and improve the performance of your application. The hook also cancels any ongong requests if your component unmounts.
@@ -6,12 +6,12 @@ It include a AbortController that allows you to easily cancel ongoing HTTP GET r
 ## Installation
 
 ```bash
-npm install abort-controller-hook
+npm install fetch-with-abort-controller-hook
 ```
 
 ## Usage
 
-Here's a simple example of how to use the `axios-abort-controller-hook` in your React component:
+Here's a simple example of how to use the `fetch-with-abort-controller-hook` in your React component:
 
 ```jsx
 import React, { useEffect } from 'react';
