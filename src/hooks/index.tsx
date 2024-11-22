@@ -1,1 +1,1 @@
-export * from './useGetWithAbort';
+export * from './useFetchWithAbort';
