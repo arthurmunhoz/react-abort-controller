@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
  * @param config object to pass to the fetch request containing headers, body, params, etc.
  * @returns the api function, the data, the loading state, the error, and the abort function
  */
-export const useFetchWithAbort = (fetchFunction: () => Promise<any>) => {
+export const useFetchWithAbort = (fetchFunction: Promise<any>) => {
 
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +25,7 @@ export const useFetchWithAbort = (fetchFunction: () => Promise<any>) => {
       controller.current = new AbortController();
     }
 
-    fetchFunction()
+    fetchFunction
       .then((response) => {
         setData(response);
         setIsLoading(false);
