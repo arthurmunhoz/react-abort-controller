@@ -5,10 +5,9 @@ import { useEffect, useRef, useState } from 'react';
  * It also provides a function to abort the fetch request if it is still pending.
  * 
  * @param fetchFunction async function to fetch data
- * @param config object to pass to the fetch request containing headers, body, params, etc.
  * @returns the api function, the data, the loading state, the error, and the abort function
  */
-export const useFetchWithAbort = (fetchFunction: Promise<any>) => {
+export const useFetchWithAbort = (fetchFunction: () => Promise<any>) => {
 
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,14 +17,14 @@ export const useFetchWithAbort = (fetchFunction: Promise<any>) => {
   const controller = useRef<AbortController | null>(null);
 
   // This function is used to fetch the data using the provided async function.
-  useEffect(() => {
+  const api = () => {
     setIsLoading(true);
 
     if (!controller.current) {
       controller.current = new AbortController();
     }
 
-    fetchFunction
+    fetchFunction()
       .then((response) => {
         setData(response);
         setIsLoading(false);
@@ -36,9 +35,8 @@ export const useFetchWithAbort = (fetchFunction: Promise<any>) => {
           setError(error);
         }
         setIsLoading(false);
-      }
-      );
-  }, [fetchFunction]);
+      });
+  }
 
   // This function is used to abort the fetch request if it is still pending
   const abort = () => {
@@ -58,5 +56,5 @@ export const useFetchWithAbort = (fetchFunction: Promise<any>) => {
     };
   }, []);
 
-  return [data, isLoading, error, abort];
+  return [api, data, isLoading, error, abort];
 };
