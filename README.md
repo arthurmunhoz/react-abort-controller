@@ -1,53 +1,60 @@
-# fetch-with-abort-controller-hook
+# react-abort-controller
 
-This is a lib that provides a custom React hook that simplifies calling and managing states of an API.
-It include a AbortController that allows you to easily cancel ongoing HTTP GET requests, and helping to prevent memory leaks and improve the performance of your application. The hook also cancels any ongong requests if your component unmounts.
+This is a lib that provides a custom React hook to help you cancel your pending requests when needed.
+
+```Scenario example: Imagine your users trigger a costly api call and while they wait they change their mind and trigger the same api with different parameters (api concurrency!), or even navigate out of that screen unmounting your component.```
+
+It provides an AbortController that allows you to easily cancel ongoing HTTP GET requests, and helping to prevent memory leaks and improve the performance of your application. The hook also cancels any ongonig requests if your component unmounts.
+
 
 ## Installation
 
 ```bash
-npm install fetch-abort-controller-hook
+npm install react-abort-controller
 ```
 
 ## Usage
 
-Here's a simple example of how to use the `fetch-abort-controller-hook` in your React component:
+Here's a simple example of how to use the `react-abort-controller` in your custom React hook:
 
 ```jsx
-import React, { useEffect } from 'react';
-import { useFetchWithAbort } from 'fetch-abort-controller-hook';
+import React, { useState } from 'react';
+import { useAbortController } from 'react-abort-controller';
 import axios from "axios";
 
-const ItemsList = () => {
-  const [page, setPage] = useState(0);
+const useGetItems = () => {
+  const [items, setItems] = useState<any | null>(null);
+  const [error, setError] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const params = useMemo(() => {
-    return {
-      page,
-      amount: 20,
+  // Use our hook to get the controller and the abort function
+  const [controller, abort] = useAbortController();
+
+  const api = async (params: Params) => {
+    // Calling 'abort' before making a new call
+    abort();
+
+    try {
+      setLoading(true);
+      setEngagementData(null);
+      setError(null);
+
+      const response = (await getItems({
+        params,
+        // Don't forget to add the controller signal
+        signal: controller.current.signal,
+      })) as unknown as any;
+
+      setItems(items);
+      setLoading(false);
+    } catch (error) {
+      if (error.message !== "canceled") {
+        setError(error);
+        setLoading(false);
+      }
     }
-  }, [page]);
+  };
 
-  const api = useCallback(() => {
-    return axios.get("https://example-url.com/items", params)
-  }, [params];
-
-  const { data, isLoading, error, abort } = useFetchWithAbort(api);
-
-  return (
-    <div>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
-      {data && (
-        <ul>
-          {data.items.map(item => (
-            <li key={item.id}>{item.name}</li>
-          ))}
-        </ul>
-      )}
-      
-      <button onClick={() => setPage(prevPage => prevPage + 1)}>Next Page</button>
-      <button onClick={abort}>Cancel Request</button>
-    </div>);
-  )
-}
+  return [api, items, loading, error];
+};
+```
