@@ -27,7 +27,7 @@ const useGetItems = () => {
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // =======================================
+  // ===========================================================
   // Load our hook to get the controller and the abort function
   const [controller, abort] = useAbortController();
 
@@ -44,7 +44,7 @@ const useGetItems = () => {
 
       const response = (await getItems({
         params,
-        // =======================================
+        // ==========================================
         // Don't forget to add the controller signal
         signal: controller.current.signal,
       })) as unknown as any;
