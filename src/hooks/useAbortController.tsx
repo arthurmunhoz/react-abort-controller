@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 
-const useAbortController = () => {
+export const useAbortController = () => {
   const controller = useRef<AbortController | null>(null);
 
   // This function is used to abort the fetch request if it is still pending
-  const abortIfNeeded = () => {
+  const abort = () => {
     if (controller.current) {
       controller.current.abort();
     } else {
@@ -21,7 +21,5 @@ const useAbortController = () => {
     };
   }, []);
 
-  return { controller, abortIfNeeded };
+  return [controller, abort] as const;
 };
-
-export default useAbortController;
