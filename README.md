@@ -27,11 +27,14 @@ const useGetItems = () => {
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Use our hook to get the controller and the abort function
+  // =======================================
+  // Load our hook to get the controller and the abort function
   const [controller, abort] = useAbortController();
 
   const api = async (params: Params) => {
-    // Calling 'abort' before making a new call
+
+    // =======================================
+    // Call 'abort' before making a new call
     abort();
 
     try {
@@ -41,6 +44,7 @@ const useGetItems = () => {
 
       const response = (await getItems({
         params,
+        // =======================================
         // Don't forget to add the controller signal
         signal: controller.current.signal,
       })) as unknown as any;
