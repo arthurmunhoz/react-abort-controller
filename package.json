@@ -1,14 +1,14 @@
 {
-  "name": "fetch-abort-controller-hook",
-  "version": "1.1.5",
-  "main": "dist/fetch-abort-controller-hook.umd.js",
-  "module": "dist/fetch-abort-controller-hook.mjs",
+  "name": "react-abort-controller-hook",
+  "version": "1.0.0",
+  "main": "dist/react-abort-controller-hook.umd.js",
+  "module": "dist/react-abort-controller-hook.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "private": false,
-  "description": "This is a custom hook to help your axios request to be cancelled when the component is unmounted and even providing you with a function to abort a query at any moment.",
+  "description": "This is a custom hook to help your axios requests to be cancelled when the component is unmounted and even providing you with a function to abort a query at any moment.",
   "repository": {
     "type": "git",
     "url": "git@github.com:arthurmunhoz/axios-abort-controller-hook.git"
