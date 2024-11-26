@@ -1,6 +1,6 @@
 {
   "name": "react-abort-controller",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/react-abort-controller.umd.js",
   "module": "dist/react-abort-controller.mjs",
   "types": "dist/index.d.ts",

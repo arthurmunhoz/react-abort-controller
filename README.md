@@ -1,10 +1,10 @@
 # react-abort-controller
 
-This is a lib that provides a custom React hook to help you cancel your pending requests when needed.
+This lib provides a custom React hook (<b>useAbortController</b>) to help you cancel your pending requests when needed.
 
 ```Scenario example: Imagine your users trigger a costly api call and while they wait they change their mind and trigger the same api with different parameters (api concurrency!), or even navigate out of that screen unmounting your component.```
 
-It provides an AbortController that allows you to easily cancel ongoing HTTP GET requests, and helping to prevent memory leaks and improve the performance of your application. The hook also cancels any ongonig requests if your component unmounts.
+The hook automatically cancels pending requests if your component unmounts. It also provides an abort controller and a function to give you more control over the request, helping prevent memory leaks and improving the performance of your application.
 
 
 ## Installation
@@ -14,6 +14,10 @@ npm install react-abort-controller
 ```
 
 ## Usage
+
+The <b>useAbortController</b> hook will provide you two things:
+- controller: Instance of AbortController. In order to control your request, you'll need to pass the controller signal to it;
+- abort: A function that cancels the request with the controller's signal.
 
 Here's a simple example of how to use the `react-abort-controller` in your custom React hook:
 
@@ -42,12 +46,15 @@ const useGetItems = () => {
       setEngagementData(null);
       setError(null);
 
-      const response = (await getItems({
-        params,
-        // ==========================================
-        // Don't forget to add the controller signal
-        signal: controller.current.signal,
-      })) as unknown as any;
+      const response = (await axios.get(
+        "https://example-url.com/items",
+        {
+          params,
+          // =========================================================
+          // Don't forget to add the controller signal to the request
+          signal: controller.current.signal,
+        })
+      ) as unknown as any;
 
       setItems(items);
       setLoading(false);
