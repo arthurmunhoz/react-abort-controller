@@ -1,10 +1,19 @@
 # react-abort-controller
 
-This lib provides a custom React hook (<b>useAbortController</b>) to help you cancel your pending requests when needed.
+This is a React library called `react-abort-controller` that provides a custom hook (`useAbortController`) to help cancel pending HTTP requests in React applications.
 
-```Scenario example: Imagine your users trigger a costly api call and while they wait they change their mind and trigger the same api with different parameters (api concurrency!), or even navigate out of that screen unmounting your component.```
+Key features:
 
-The hook automatically cancels pending requests if your component unmounts. It also provides an abort controller and a function to give you more control over the request, helping prevent memory leaks and improving the performance of your application.
+- Automatically cancels requests when components unmount (prevents memory leaks)
+Provides manual control to abort requests at any time
+Works with any HTTP library that supports AbortController (like axios, fetch)
+Helps handle API concurrency issues when users trigger multiple requests
+Main export:
+
+- `useAbortController()` hook returns `[controller, abort]` where:
+  - `controller`: AbortController instance to pass to HTTP requests
+  - `abort`: Function to manually cancel the current request
+Use case: Prevents issues when users navigate away or trigger new requests before previous ones complete, improving app performance and preventing race conditions.
 
 
 ## Installation
@@ -14,10 +23,6 @@ npm install react-abort-controller
 ```
 
 ## Usage
-
-The <b>useAbortController</b> hook will provide you two things:
-- controller: Instance of AbortController. In order to control your request, you'll need to pass the controller signal to it;
-- abort: A function that cancels the request with the controller's signal.
 
 Here's a simple example of how to use the `react-abort-controller` in your custom React hook:
 
